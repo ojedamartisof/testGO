@@ -1,24 +1,27 @@
 package main
-//x - slice
-//a la funcion le paso los parametros.
-//desde el primero hasta el penultimo
-//func main(){
-//	z := []int{3,2,4,5,9}
-//	fmt.Println(prueba(z))
-//}
-func prueba( x []int) int {
-	sol := -1 //los dos puntos son cuando la variable no esta declarada
-	for i := 0; i <= len(x) -2; i++{
-		for j := i + 1; j <= len(x) -1; j++{
-			if x[i] == x[j]{
-				sol = x[i]
-				break //si encontro el duplicado se va
-			}
-		}
-			if  sol != -1 { //si encuentra el duplicado se va, no sigue buscando
-				break
-			}
-	}
-	return sol
+
+import "fmt"
+
+func main() {
+	z := []int{2, 1, 3, 5, 3, 2}
+	fmt.Println(prueba(z))
 }
 
+func prueba(x []int) int {
+	sol := len(x) // pongo como solucion inicial un indice grande, que no exista en el arreglo
+	for i := 0; i <= len(x)-2; i++ {
+		for j := i + 1; j <= len(x)-1; j++ {
+			if x[i] == x[j] && j < sol { // busco siempre el menor indice
+				sol = j // guardo el menor indice
+			}
+		}
+	}
+	if sol != len(x) { // pregunto si la solucion encontrada es diferente a la inicial
+
+		return x[sol] // retorno el elemento del arreglo en ese indice
+	}
+
+	// en caso que la solucion siga siendo la incial es porque no encontro un duplicado entonces devuelvo -1
+	return -1
+
+}
